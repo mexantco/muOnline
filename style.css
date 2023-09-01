@@ -1,0 +1,306 @@
+@font-face {
+    font-family: 'Palatino Linotype';
+    font-style: normal;
+     font-weight: 400;
+     src: url('/assets/font/palatinolinotype_roman.ttf');
+}
+.btn{
+    cursor: pointer;
+    position: absolute;
+    top:7.5vw;
+    width: 1.7vw;
+}
+.btn_container{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.screen_container{
+    overflow: hidden;
+    right: 0;
+    position: absolute;
+    height: 100%;
+    margin: auto;
+    left: 0;
+    width: 87%;
+}
+.left{left:3vw;}
+.right{left:5vw;}
+.btn2{
+    cursor: pointer;
+    position: absolute;
+    top: 4.2vw;
+    width: 1.7vw;
+}
+#left2{left:1vw;}
+#right2{left:35.5vw;}
+.event_start{
+    position: absolute;
+    bottom: 2vw;
+    left: 3vw;
+    font-size: 1.5vw;
+    font-family: 'Palatino Linotype', sans-serif;
+    font-weight: bold;
+    color: white;
+}
+#startTime{
+    font-size: 3vw;
+}
+.banner_top{
+    position: absolute;
+    top: 2vw;
+    left: 3vw;
+    font-size: 1.5vw;
+    font-family: 'Palatino Linotype', sans-serif;
+    font-weight: bold;
+    color: white;
+}
+body{
+    padding: 22vw 22.5vw 6.2vw 15.8vw;
+    background-image: url(assets/img/main_back.png);
+    margin: 0;
+    font-family: 'Palatino Linotype', sans-serif;
+    background-position-x: -1vw;
+}
+
+.wrapper{
+    position: relative;
+    box-sizing: border-box;
+    /* height: 100%; */
+    
+}
+.screen_slider{
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    height: 10vw;
+    text-align: center;
+    line-height: 10vw;
+    width: 38vw;
+    margin: 0 auto;
+}
+.screen{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 8vw;
+    height: 6vw;
+    
+}
+.screenshot{
+    background: linear-gradient(to top, #00000029, #00000029), no-repeat center/89%  url(assets/img/screen.png), no-repeat center/100% url(assets/img/screenframe.png);
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 89%;
+    width: 89%;
+}
+.screenshot:hover{
+    height: 100%;
+    width: 100%;
+    background: no-repeat center/89%  url(assets/img/screen.png), no-repeat center/100% url(assets/img/screenframe.png);
+
+}
+.right_panel{
+    display: inline-block;
+    background-size: 100% auto;
+    width: 28vw;
+    z-index: -1;
+    background-image: url('assets/img/right_panel.png');
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+.footer_cont{
+    background-image: url('assets/img/footer_cont.png');
+    background-size: 100%;
+    margin-left: -3.5vw;
+    width:  65.45vw;
+    height: 5vw;
+    
+    
+}
+.news{
+    background-image: url('assets/img/news_back1.png');
+    background-size: 100% 100%;
+    margin: 0 auto;
+    height: 46vw;
+    width: 34.1vw;
+    padding: 1.1vw 1.1vw; 
+    box-sizing: border-box;
+}
+.news2{
+    margin: 0 auto;
+    background-image: url('assets/img/news_back1.png');
+    background-size: 100% 100%;
+    
+    height: 16.7vw;
+    width: 34.1vw;
+    
+    padding: 1.1vw 1.1vw; 
+    box-sizing: border-box;
+}
+.news2_inner{
+    height: 100%;
+    text-align: justify;
+    color: #FFFFFF;
+}
+.news_header{
+    -webkit-background-clip: text;
+    background-color: #956A2F;
+    background-clip: text;
+    text-shadow: 0 1px 2px #fff;
+    color: #ffffff00;
+    font: 1.5vw bold;
+    font-family: 'Palatino Linotype', sans-serif;
+}
+
+.news_body{
+    margin-top: 0.5vw;
+    margin-bottom: 0;
+    font-size: 0.75vw;
+    color: #FFFFFF;
+    font-family: 'Palatino Linotype', sans-serif;
+}
+.views{
+    margin-top: 0.5vw;
+}
+.views_name{
+    font-size: 0.75vw;
+    margin-right: 0.5vw;
+}
+.views_count{
+    font-size: 0.75vw;
+    font-weight: bold;
+    margin-right: 0.5vw;
+}
+.views_date{
+font-size: 0.5vw;
+padding: 0.2vw;
+    border-radius: 4px;
+    background: #ffb14763;
+}
+.logo{
+    background-image: url('assets/img/logo.png');
+    background-size: 100% 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 0;
+    height: 40.67vw;
+}
+.header{
+    background-image: url('assets/img/header.png');
+    background-size: 100% 100%;
+    position: absolute;
+    top: 18vw;
+    left: 15.5vw;
+    height: 6vw;
+    z-index: 3;
+    width: 66vw;
+    padding-left: 3vw;
+    padding-right: 10vw;
+    box-sizing: border-box;
+}
+.header table{
+    table-layout: fixed;
+    text-align: center;
+    font-size: 1.1vw;
+    color: #FFFFFF;
+    width: 100%;
+    height: 4.5vw;
+
+}
+.header td:hover{
+    background-image: url('assets/img/header_hover.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    font-size: 1.2vw;
+    font-weight: bold;
+    cursor: pointer;
+}
+.header td{
+    text-shadow: 1px 0px 0px #956A2F;
+    position: relative;
+    width: 100%;
+}
+
+.news_inner{
+    height: 100%;
+    text-align: justify;
+    color: #FFFFFF;
+    
+}
+.news_video{
+    border: 3px solid #ffb14763;
+    border-style: groove;
+    width: 100%;
+    height: 18.4vw;
+    position: relative;
+    margin-top: 1vw;
+}
+.frame{
+    position: absolute;
+}
+.leftTop{
+    left:-0.7vw;
+    top: -0.5vw;
+}
+.rightTop{
+    right:-0.5vw;
+    top: -0.7vw;
+}
+.leftBottom{
+    left:-0.5vw;
+    bottom: -0.7vw;
+}
+.rightBottom{
+    right:-0.7vw;
+    bottom: -0.5vw;
+}
+.news_text{
+    margin-top: 0.5vw;
+    font-size: 0.8vw;
+}
+.news_head{
+    
+    color: white;
+    text-align: center;
+    font-size: 1.5vw;
+    line-height: 5vw;
+    margin: 0 auto;
+    width: 20vw;
+    height: 5vw;
+    background-image: url(assets/img/table_back.png);
+    background-size: 100% 100%;
+}
+.banner{
+    position: relative;
+    background-image: url('assets/img/banner.png');
+    width: 38.5vw;
+    height: 22.7vw;
+    background-size: 100% 100%;
+}
+.perehod {
+    height: 3.15vw;
+    width: 38.5vw;
+}
+.body{
+    background-image: url('assets/img/cont_back.png');
+    background-repeat: repeat-y;
+    background-size: 110vw auto;
+    background-position-x: -7vw;
+    vertical-align: top;
+    display: inline-block;
+    width: 38.5vw;
+    padding-left: 3.5vw;
+}
+.menu img{
+    position: absolute;
+    right: 0;
+    top: 0.5vw;
+    height: 3vw
+}
