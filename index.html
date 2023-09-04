@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="modal_market_detail">
+        <img src="" alt="" class="market_item_img">
+        <div class="market_item_desc">
+            <span id="desc_name">ddddd</span><br>
+            <span id="desc_equip">daasdasdasdasda</span><br>
+            <span id="desc2">asdsadas</span><br>
+            <span id="cost">Цена:</span><br>
+            <span id="cost2">saxass <br>jkdks <br> sadasd </span>
+        </div>
+
+    </div>
     <div class="logo"></div>
     <div class="header">
         <table class="menu">
@@ -111,7 +122,209 @@
         </div>
         <div class="footer_cont"></div>
     </div>
-    <div class="right_panel"></div>
+    <div class="right_panel">
+        <div class="profile">
+            <div class="profile_header">Личный кабинет</div>
+            <input type="text" class="input" placeholder="Логин" name="login">
+            <input type="password" class="input" placeholder="Пароль" name="password">
+            <div class="bot_check">Решите пример: <br>2*3</div>
+            <input type="text" class="input" placeholder="Ответ" name="answer">
+            <input type="text" class="input" placeholder="Выберите сервер" name="server">
+             <button class="login_button">Войти</button>
+        </div>
+        <div class="server_stat" id="servers">
+            <div class="server_header">Статус сервера</div>
+            
+            <!-- <div class="server deusx1000">Deus 
+                <span class="server_type">x1000</span>
+                <span class="value"></span>
+                <div class="scale"></div>
+                <img src="assets/img/frame_server_left.png" alt="" class="frame_left">
+                <img src="assets/img/frame_server_right.png" alt="" class="frame_right">
+            </div>  -->
+            <img src="assets/img/server_perehod.png" alt="" class="server_perehod" id="razdel">
+            <div class="online_count" >Общий онлайн: <span class="online_count_value" id="online_sum">1268</span></div>
+            <div class="online_count_today">Онлайн сегодня: <span class="online_count_value" id="online_tod">3347</span></div>
+        </div>
+        <div class="market">
+            <div class="market_header">Рынок</div>
+            <div  class="market_item" id="market_item1" 
+            data-equip="Can be equipment by DW/DK/FE/MG/DL"
+            data-desc="Maximum Life Increase 6%"
+            data-cost="Камни:0<br>Decay Points: 42<br>Zen coins:0"
+            data-name="Speed Sphere (Wind) +1">Speed Sphere (Wind) +1</div>
+            <div  class="market_item" id="market_item2" >Speed Sphere (Water) +4</div>
+            <div  class="market_item" id="market_item3" >Evis Bone Armeor +12</div>
+            <div  class="market_item" id="market_item4" >Gywen Guardian Armor +13</div>
+            <div  class="market_item" id="market_item5" >Agnis Adamantine Pants +13</div>
+            <button class="market_button">Войти на рынок</button>
+        </div>
+        <div class="top" id="top">
+            <div class="top_header">Топ 5 игроков</div>
+            <table id="table_top">
+                <tr style="background: none;"><th>Имя</th><th>Сбрасываний</th><th>Уровень</th></tr>
+                <tr id="n1"><td class="name">dsd</td><td class="reset">34</td><td class="level">31</td></tr>
+                <tr id="n2"><td class="name">fsdf</td><td class="reset">43</td><td class="level">31</td></tr>
+                <tr id="n3"><td class="name">fsdffsd</td><td class="reset">221</td><td class="level">31</td></tr>
+                <tr id="n4"><td class="name">fsdf</td><td class="reset">221</td><td class="level">31</td></tr>
+                <tr style="background: none;"id="n5"><td class="name">fs</td><td class="reset">221</td><td class="level">31</td></tr>
+            </table>
+            <select id="server_choose" >
+                
+               </select>
+        </div>
+        <div class="events" id="events">
+            <div class="events_header">Ивенты</div>
+            <table id="table_events">
+                </table>
+            
+        </div>
     </div>
+    </div>
+   
 </body>
+<script>
+    ////////////////////////////////////////// подсказка по рынку
+    var elements = document.querySelectorAll(".market_item");
+for (var i = 0; i < elements.length; i++) {
+  elements[i].onmouseover = function(e){
+   let data_name=this.getAttribute('data-name');
+   let data_equip=this.getAttribute('data-equip');
+   let data_desc=this.getAttribute('data-desc');
+   let data_cost=this.getAttribute('data-cost');
+   document.getElementById('desc_name').textContent=data_name;
+   document.getElementById('desc_equip').textContent=data_equip;
+   document.getElementById('desc2').textContent=data_desc;
+   document.getElementById('cost2').innerHTML=data_cost;
+   document.getElementById('modal_market_detail').style.display ='block';
+
+  };
+  elements[i].onmouseout = function(e){
+    document.getElementById('modal_market_detail').style.display ='none';
+  }
+
+}
+    ///////////////////////////////////запрос статистики
+let xhr = new XMLHttpRequest();
+xhr.open('GET', 'server.php');
+xhr.send();
+xhr.onload = function() {
+    
+  if (xhr.status != 200) { 
+    alert(`Ошибка`); 
+  } else { 
+    let resp = JSON.parse(xhr.response);
+    let servers = resp.servers;
+    console.log(servers);
+    let server_count = servers.length;
+    // console.log(resp);
+    var onlineSum=0;
+    for(i=0; i<server_count; i++){
+        ///////////////////////////// Добавляем сервера в статистику нагрузки
+        var parent = document.getElementById('servers');
+        var el = document.createElement('div');
+         el.className = 'server';
+         el.innerHTML =servers[i].langs.name+'<span class="value">'+servers[i].online+'</span><div class="scale"><div class="scale_back"></div></div><img src="assets/img/frame_server_left.png" alt="" class="frame_left"><img src="assets/img/frame_server_right.png" alt="" class="frame_right">';
+         let proc = servers[i].online*100/servers[i].onlineMax;
+         if(proc>100){proc=100;}
+         onlineSum+=servers[i].online;
+         let elBefore = document.getElementById('razdel');
+         parent.insertBefore(el, elBefore);
+         let scale = el.querySelector('.scale_back');
+          scale.style.width = proc+'%';
+          ///////////////////добавляем сервера в список выбора Топа
+          let parent2 = document.getElementById('server_choose');
+          var el2 = document.createElement('option');
+          el2.className="top_option";
+          el2.value=i;
+          el2.textContent=servers[i].langs.name;
+          el2.setAttribute('data-num', i);
+          parent2.appendChild(el2);
+         }
+         ////////////////////////////функция выбора сервера для топа и вставка данных
+         let servChoose = document.getElementById('server_choose');
+         
+         
+         function choose(){
+           
+            let val= servChoose.value;
+            let arTop = servers[val].top;
+            let tabl = document.getElementById('table_top');
+            for(j=0; j<=4; j++){
+            let tr = tabl.querySelector('#n'+(j+1));
+            let name = tr.querySelector('.name');
+            let reset = tr.querySelector('.reset');
+            let level = tr.querySelector('.level');
+            name.textContent= arTop[j].name;    
+            reset.textContent= arTop[j].resets;
+            level.textContent= arTop[j].level;
+            console.log(level.textContent);
+            }
+            console.log(arTop);
+        }
+        choose();/////////вызов функции при загрузке
+        servChoose.onchange= choose;////////////при выборе
+    document.getElementById('online_sum').textContent=onlineSum;
+  }
+};
+
+
+/////////////////////////////////// запрос ивентов
+let xhr3 = new XMLHttpRequest();
+xhr3.open('GET', 'server2.php');
+xhr3.send();
+xhr3.onload = function() {
+    
+  if (xhr3.status != 200) { 
+    alert(`Ошибка`); 
+  } else { 
+    let resp3 = JSON.parse(xhr3.response);
+    let arEvents = resp3.allEvents;
+    let parent3 = document.getElementById('table_events');
+    console.log(arEvents);
+    for(ev in arEvents){
+        let startTime = new Date(arEvents[ev].date);
+        var hour;
+        var min;
+        if(startTime.getHours()*1<10){hour = '0'+startTime.getHours()}else{var hour = startTime.getHours()}
+        if(startTime.getMinutes()<10){min = '0'+startTime.getMinutes()}else{var min = startTime.getMinutes()}
+        startTime=hour+':'+min;
+        console.log(min);
+        var el3 = document.createElement('tr');
+          el3.innerHTML='<td ><span class="name">'+ev+'</span><br><span >начнется через</span></td><td class="time1">'+startTime+'<span class="time"></span><br><span class="timeto" data-timeto="'+arEvents[ev].startSeconds+'">'+arEvents[ev].startSeconds+'</span></td>';
+          
+          parent3.appendChild(el3);
+        console.log(arEvents[ev]);
+    }
+
+    
+          
+    
+  }
+};
+
+
+function pad2(num) {
+    var s = num.toString();
+    return (s.length < 2)? "0" + s : s;
+}
+
+function countdown(){
+    let timetoar = document.getElementsByClassName('timeto');
+    for(i=0; i<timetoar.length; i++){
+        let elem = timetoar[i];
+        timeost = ((elem.getAttribute('data-timeto'))*1)-1;
+        if(timeost<=0||elem.textContent=='началось'){elem.textContent='началось'}else{
+            var m = Math.floor(timeost / 60);
+var s = timeost % 60;
+var h = Math.floor(m / 60);
+m = m % 60;
+var result = pad2(h)+':'+pad2(m)+':'+pad2(s);
+            elem.setAttribute('data-timeto', timeost);
+            elem.textContent=result;
+        }
+    }
+}
+setInterval(countdown, 1000);
+</script>
 </html>
