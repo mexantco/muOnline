@@ -32,14 +32,14 @@
         </table>
     </div>
     <div class="wrapper">
-        
+       <div style="display: table;"> 
         <div class="body">
         <div class="banner">
             <div class="banner_top">EVENT<br>DEVIL SQUARE</div>
-            <img class="btn left" src="assets/img/button-left.png" alt="">
-            <img class="btn right" src="assets/img/button-right.png" alt="">
+            <img class="btn left" id="bleft" src="assets/img/button-left.png" alt="">
+            <img class="btn right" id="bright" src="assets/img/button-right.png"  alt="">
 
-            <div class="event_start">EVENT START <span id="startTime"> 00:00:00:41</span></div>
+            <div class="event_start">EVENT START <span id="startTime" data-timeto=""> 00:00:00:41</span></div>
 
         </div>
         <img src="assets/img/perehod.png" alt="" class="perehod">
@@ -120,7 +120,7 @@
                 <div class="views"><span class="views_name">Просмотров:</span><span class="views_count">69383</span><span class="views_date">25.03.2023</span></div>
             </div>
         </div>
-        <div class="footer_cont"></div>
+        
     </div>
     <div class="right_panel">
         <div class="profile">
@@ -180,6 +180,8 @@
             
         </div>
     </div>
+       </div>
+    <div class="footer_cont" ></div>
     </div>
    
 </body>
@@ -268,7 +270,11 @@ xhr.onload = function() {
   }
 };
 
-
+/////////////////формат времеи
+function pad2(num) {
+    var s = num.toString();
+    return (s.length < 2)? "0" + s : s;
+}
 /////////////////////////////////// запрос ивентов
 let xhr3 = new XMLHttpRequest();
 xhr3.open('GET', 'server2.php');
@@ -279,38 +285,102 @@ xhr3.onload = function() {
     alert(`Ошибка`); 
   } else { 
     let resp3 = JSON.parse(xhr3.response);
+    
     let arEvents = resp3.allEvents;
+    
     let parent3 = document.getElementById('table_events');
-    console.log(arEvents);
+    // console.log(arEvents);
+    var mintime=9999999999;
+    var mintimename = '';
     for(ev in arEvents){
+        if(arEvents[ev].startSeconds*1<mintime){mintimename=ev; mintime=arEvents[ev].startSeconds*1;}
+        
         let startTime = new Date(arEvents[ev].date);
         var hour;
         var min;
         if(startTime.getHours()*1<10){hour = '0'+startTime.getHours()}else{var hour = startTime.getHours()}
         if(startTime.getMinutes()<10){min = '0'+startTime.getMinutes()}else{var min = startTime.getMinutes()}
         startTime=hour+':'+min;
-        console.log(min);
+        
         var el3 = document.createElement('tr');
           el3.innerHTML='<td ><span class="name">'+ev+'</span><br><span >начнется через</span></td><td class="time1">'+startTime+'<span class="time"></span><br><span class="timeto" data-timeto="'+arEvents[ev].startSeconds+'">'+arEvents[ev].startSeconds+'</span></td>';
-          
           parent3.appendChild(el3);
-        console.log(arEvents[ev]);
+        
     }
+     //////////////////////////////  сортировка ивентов
+    
+    var arEvents1 = {}; // новый пустой объект
 
+for (let key in arEvents) {
+    arEvents1[key] = arEvents[key];
+}
+
+    arrLength = Object.keys(arEvents1).length;
+    var arrSort = [];
+    for(k=0; k<arrLength; k++){
+        var mint = 999999999;
+        var minname='';
+        for(ev in arEvents1){
+           
+        if(arEvents1[ev].startSeconds*1<mint){
+        minname=ev;
+        mint=arEvents1[ev].startSeconds*1;
+        
+        }
+        
+    }
+    arrSort.push(minname);
+    delete arEvents1[minname];
+       
+    }
+    //console.log(arEvents1);
+     console.log(arEvents); 
+    ////////////////////////// Вставляем первое событие в баннер
+    var bannerfn = function(num){
+        let timer = localStorage.getItem('timer')*1;
+    var banner = document.getElementsByClassName('banner')[0];
+    var bannertop = banner.querySelector('.banner_top');
+    var bannerstart = banner.querySelector('#startTime');
+    bannertop.innerHTML="EVENT<br>"+arEvents[arrSort[num]].data.name;
+    let seconds = arEvents[arrSort[num]].startSeconds-timer;
+    var m = Math.floor(seconds / 60);
+    var s = seconds % 60;
+    var h = Math.floor(m / 60);
+    m = m % 60;
+    var result = pad2(h)+':'+pad2(m)+':'+pad2(s);
+    // banner.style.backgroundImage = 'url(\'assets/img/'+arEvents[arrSort[num]].data.name+'.png\')';
+    banner.style.backgroundSize = 'cover';
+    banner.setAttribute('data-num', num);
+    bannerstart.textContent= result;   
+    bannerstart.setAttribute('data-timeto', seconds);
+    }
+    bannerfn(0);
     
-          
     
+    var lbtn = document.getElementById('bleft');
+    var rbtn = document.getElementById('bright');
+    lbtn.addEventListener('click', function (){
+        var banner = document.getElementsByClassName('banner')[0];
+        var num = banner.getAttribute('data-num')*1;
+        bannerfn(num-1);
+    });
+    rbtn.addEventListener('click', function (){
+        var banner = document.getElementsByClassName('banner')[0];
+        var num = banner.getAttribute('data-num')*1;
+        bannerfn(num+1);
+    });
   }
 };
 
 
-function pad2(num) {
-    var s = num.toString();
-    return (s.length < 2)? "0" + s : s;
-}
 
+////////////////////////////счетчик времени
+localStorage.setItem('timer','0');
 function countdown(){
-    let timetoar = document.getElementsByClassName('timeto');
+    let timer = localStorage.getItem('timer')*1;
+    timer++;
+    localStorage.setItem('timer', timer);
+    let timetoar = document.querySelectorAll('.timeto,#startTime');
     for(i=0; i<timetoar.length; i++){
         let elem = timetoar[i];
         timeost = ((elem.getAttribute('data-timeto'))*1)-1;

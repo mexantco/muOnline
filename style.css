@@ -268,6 +268,7 @@ background-position: bottom;
 }
 #startTime{
     font-size: 3vw;
+    margin-left: 3vw;
 }
 .banner_top{
     position: absolute;
@@ -288,9 +289,11 @@ body{
 }
 
 .wrapper{
+    
+    width: 70vw;
     position: relative;
     box-sizing: border-box;
-    /* height: 100%; */
+    
     
 }
 .screen_slider{
@@ -328,19 +331,17 @@ body{
 
 }
 .right_panel{
-    display: inline-block;
+    display: table-cell;
     background-size: 100% auto;
     width: 28vw;
     /* z-index: -1; */
     background-image: url('assets/img/right_panel.png');
-    position: absolute;
-    top: 0;
-    bottom: 0;
+    
 }
 .footer_cont{
     background-image: url('assets/img/footer_cont.png');
     background-size: 100%;
-    margin-left: -3.5vw;
+    margin-top: -2vw;
     width:  65.45vw;
     height: 5vw;
     
@@ -502,7 +503,7 @@ padding: 0.2vw;
     position: relative;
     background-image: url('assets/img/banner.png');
     width: 38.5vw;
-    height: 22.7vw;
+    height: 18vw;
     background-size: 100% 100%;
 }
 .perehod {
@@ -510,12 +511,13 @@ padding: 0.2vw;
     width: 38.5vw;
 }
 .body{
+
     background-image: url('assets/img/cont_back.png');
     background-repeat: repeat-y;
     background-size: 110vw auto;
     background-position-x: -7vw;
     vertical-align: top;
-    display: inline-block;
+    display: table-cell;
     width: 38.5vw;
     padding-left: 3.5vw;
 }
